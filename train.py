@@ -139,8 +139,8 @@ def train_wasr(args,trainloader=None, testloader=None):
         callbacks=callbacks,
         sync_batchnorm=True,
         log_every_n_steps=args.log_steps,
-        precision=args.precision,
-        ckpt_path=args.resume_from if args.resume_from else None
+        precision=args.precision
+        # ckpt_path=args.resume_from if args.resume_from else None
     )
     trainer.fit(model, train_dl, val_dl)
 
