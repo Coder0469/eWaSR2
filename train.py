@@ -132,7 +132,8 @@ def train_wasr(args,trainloader=None, testloader=None):
         callbacks.append(ModelExporter())
 
     trainer = pl.Trainer(logger=logger,
-                         gpus=args.gpus,
+                         devices=args.gpus,
+                         accelerator="gpu",
                          max_epochs=args.epochs,
                          #accelerator='ddp',
                          resume_from_checkpoint=args.resume_from,
