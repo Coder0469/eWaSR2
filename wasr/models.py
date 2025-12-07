@@ -211,7 +211,7 @@ def ewasr(num_classes, imu, backbone, **kwargs):
         raise ValueError(f"Backbone {backbone} is not supported!")
 
     decoder = EWaSRDecoder(
-        num_classes=3,
+        num_classes=num_classes,
         ch= ch, #512 if kwargs.get("ch") is None else kwargs["ch"], 
         L=6 if kwargs.get("L") is None else kwargs["L"], 
         imu = imu,
