@@ -51,8 +51,8 @@ def get_arguments(input_args=None):
                         help="Patience for early stopping (how many epochs to wait without increase).")
     parser.add_argument("--log_steps", type=int, default=LOG_STEPS,
                         help="Number of steps between logging variables.")
-    parser.add_argument("--gpus", default=NUM_GPUS,
-                        help="Number of gpus (or GPU ids) used for training.")
+    parser.add_argument("--devices", type=int, default=NUM_GPUS)
+    parser.add_argument("--accelerator", type=str, default="gpu")
     parser.add_argument("--workers", type=int, default=NUM_WORKERS,
                         help="Number of workers used for data loading.")
     parser.add_argument("--random_seed", type=int, default=RANDOM_SEED,
@@ -131,16 +131,17 @@ def train_wasr(args,trainloader=None, testloader=None):
         callbacks.append(LearningRateMonitor(logging_interval='step'))
         callbacks.append(ModelExporter())
 
-    trainer = pl.Trainer(logger=logger,
-                         devices=args.gpus,
-                         accelerator="gpu",
-                         max_epochs=args.epochs,
-                         #accelerator='ddp',
-                         resume_from_checkpoint=args.resume_from,
-                         callbacks=callbacks,
-                         sync_batchnorm=True,
-                         log_every_n_steps=args.log_steps,
-                         precision=args.precision)
+    trainer = pl.Trainer(
+        logger=logger,
+        accelerator=args.accelerator,
+        devices=args.devices,
+        max_epochs=args.epochs,
+        callbacks=callbacks,
+        sync_batchnorm=True,
+        log_every_n_steps=args.log_steps,
+        precision=args.precision,
+        ckpt_path=args.resume_from if args.resume_from else None
+    )
     trainer.fit(model, train_dl, val_dl)
 
 
