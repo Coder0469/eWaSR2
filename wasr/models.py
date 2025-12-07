@@ -19,15 +19,15 @@ model_urls = {
     'deeplabv3_resnet101_coco': 'https://download.pytorch.org/models/deeplabv3_resnet101_coco-586e9e4e.pth'
 }
 
-def get_model(model_name, num_classes=3, pretrained=True, **kwargs):
+def get_model(model_name, num_classes=3, weights='IMAGENET1K_V1', **kwargs):
 
     imu = model_name.endswith('_imu')
     if model_name.startswith('wasr_resnet101'):
-        model = wasr_deeplabv2_resnet101(num_classes=num_classes, pretrained=pretrained, imu=imu, **kwargs)
+        model = wasr_deeplabv2_resnet101(num_classes=num_classes, weights=weights, imu=imu, **kwargs)
     elif model_name.startswith('wasr_resnet50'):
         model = wasr_deeplabv2_resnet50(num_classes=num_classes, imu=imu)
     elif model_name == 'deeplab':
-        model = deeplabv3_resnet101(num_classes=num_classes, pretrained=pretrained)
+        model = deeplabv3_resnet101(num_classes=num_classes, weights=weights)
     elif model_name.startswith('wasr_resnet18'):
         model = wasr_deeplabv2_resnet18(num_classes=num_classes, imu=imu)
     elif model_name.startswith('ewasr'):
