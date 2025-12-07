@@ -99,15 +99,17 @@ def train_wasr(args,trainloader=None, testloader=None):
     if not args.no_augmentation:
         transform = get_augmentation_transform()
 
-    # train_ds = MaSTr1325Dataset(args.train_config, transform=transform,
-    #                             normalize_t=normalize_t)
+    train_ds = MaSTr1325Dataset(args.train_config, transform=transform,
+                                normalize_t=normalize_t)
 
-    train_dl = trainloader
+    train_dl = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True,
+                            num_workers=args.workers, drop_last=True)
 
-    val_dl = testloader
-    # if args.validation:
-    #     val_ds = MaSTr1325Dataset(args.val_config, normalize_t=normalize_t, include_original=True)
-    #     val_dl = DataLoader(val_ds, batch_size=args.batch_size, num_workers=args.workers)
+    val_dl = None
+    if args.validation:
+        val_ds = MaSTr1325Dataset(args.val_config, normalize_t=normalize_t, include_original=True)
+        val_dl = DataLoader(val_ds, batch_size=args.batch_size, num_workers=args.workers)
+
 
     model = models.get_model(args.model, num_classes=args.num_classes, pretrained=args.pretrained, mixer=args.mixer, enricher=args.enricher, project=args.project)
 
