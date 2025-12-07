@@ -63,13 +63,11 @@ def focal_loss(logits, labels, gamma=2.0, alpha=4.0, target_scale='labels'):
     epsilon = 1.e-9
 
     if target_scale == 'logits':
-        # Resize one-hot labels to match the logits scale
-        logits_size = (logits.size(2), logits.size(3))
-        labels = F.interpolate(labels, size=logits_size, mode='area')
+        labels_size = logits.shape[2:]  # (H, W)
+        labels = F.interpolate(labels, size=labels_size, mode='nearest')
     elif target_scale == 'labels':
-        # Resize network output to match the label size
-        labels_size = (labels.size(2), labels.size(3))
-        logits = TF.resize(logits, labels_size, interpolation=InterpolationMode.BILINEAR)
+        labels_size = labels.shape[2:]
+        logits = F.interpolate(logits, size=labels_size, mode='bilinear', align_corners=False)
     else:
         raise ValueError('Invalid value for target_scale: %s' % target_scale)
 
