@@ -198,7 +198,7 @@ def wasr_deeplabv2_resnet18(num_classes=3, imu=True):
 def ewasr(num_classes, imu, backbone, **kwargs):
 
     if backbone == "resnet18":
-        bb = resnet18(pretrained=True)
+        bb = resnet18(weights='IMAGENET1K_V1')
         return_layers = {
             'layer4': 'out',
             'layer1': 'skip1',
