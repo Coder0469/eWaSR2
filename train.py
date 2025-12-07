@@ -10,8 +10,8 @@ from pytorch_lightning.callbacks import EarlyStopping, ModelCheckpoint, Learning
 import wasr.models as models
 from wasr.train import LitModel
 from wasr.utils import ModelExporter, load_weights
-from datasets.mastr import MaSTr1325Dataset
-from datasets.transforms import get_augmentation_transform, PytorchHubNormalization
+from eWaSR2.datasets.mastr import MaSTr1325Dataset
+from eWaSR2.datasets.transforms import get_augmentation_transform, PytorchHubNormalization
 
 
 DEVICE_BATCH_SIZE = 4
