@@ -176,8 +176,8 @@ def deeplabv3_resnet101(num_classes=3, pretrained=True):
 
 def wasr_deeplabv2_resnet18(num_classes=3, imu=True):
     # Pretrained ResNet18 backbone
-    # backbone = resnet18(weights='IMAGENET1K_V1')
-    backbone = timm.create_model('resnet18', pretrained=False)
+    backbone = resnet18(weights='IMAGENET1K_V1')
+    # backbone = timm.create_model('resnet18', pretrained=False)
     return_layers = {
         'layer4': 'out',
         'layer1': 'skip1',
