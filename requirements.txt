@@ -4,7 +4,7 @@ pytorch-lightning>=1.0.6
 Pillow
 numpy
 tqdm
-timm
+timm==0.6.5
 albumentations
 tensorboard
 blobconverter
