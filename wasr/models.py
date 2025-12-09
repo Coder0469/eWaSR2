@@ -206,7 +206,7 @@ def ewasr(num_classes, imu, backbone, **kwargs):
             'layer3': 'aux'
         }
         ch = 512
-        # bb = IntermediateLayerGetter(bb, return_layers=return_layers)
+        bb = IntermediateLayerGetter(bb, return_layers=return_layers)
     else:
         raise ValueError(f"Backbone {backbone} is not supported!")
 
