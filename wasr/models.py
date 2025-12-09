@@ -64,20 +64,21 @@ class WaSR(nn.Module):
 
     def forward(self, x):
 
-        features = self.backbone(x['image'])
+        # features = self.backbone(x['image'])
 
-        features['imu_mask'] = x['imu_mask'].float().unsqueeze(1)
-        features = (features['out'], features['aux'], features['skip2'], features['skip1'], features['imu_mask'])
-        aux = features[1]
+        # features['imu_mask'] = x['imu_mask'].float().unsqueeze(1)
+        # features = (features['out'], features['aux'], features['skip2'], features['skip1'], features['imu_mask'])
+        # aux = features[1]
         # x = self.decoder(*features)
 
-        # Return segmentation map and aux feature map
-        output = OrderedDict([
-            # ('out', x),
-            ('aux', aux)
-        ])
+        # # Return segmentation map and aux feature map
+        # output = OrderedDict([
+        #     ('out', x),
+        #     ('aux', aux)
+        # ])
 
-        return output
+        # return output
+        return x
 
 
 def wasr_deeplabv2_resnet101(num_classes=3, pretrained=False, imu=False, **kwargs):
