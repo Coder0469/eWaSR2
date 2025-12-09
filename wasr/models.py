@@ -7,6 +7,8 @@ import torchvision
 from torchvision.models import segmentation
 from torchvision.models.resnet import resnet101, resnet50, resnet18
 from torch.hub import load_state_dict_from_url
+from segmentation_models_pytorch.encoders import get_encoder
+
 
 from .decoders import *
 from .utils import IntermediateLayerGetter
@@ -176,7 +178,7 @@ def deeplabv3_resnet101(num_classes=3, pretrained=True):
 
 def wasr_deeplabv2_resnet18(num_classes=3, imu=True):
     # Pretrained ResNet18 backbone
-    backbone = resnet18(weights='IMAGENET1K_V1')
+    backbone = get_encoder('resnet18',depth=4,weights="imagenet")
     # backbone = timm.create_model('resnet18', pretrained=False)
     return_layers = {
         'layer4': 'out',
