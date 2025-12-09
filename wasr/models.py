@@ -1,6 +1,7 @@
 from collections import OrderedDict
 
 import torch
+import timm
 from torch import nn
 import torchvision
 from torchvision.models import segmentation
@@ -175,7 +176,8 @@ def deeplabv3_resnet101(num_classes=3, pretrained=True):
 
 def wasr_deeplabv2_resnet18(num_classes=3, imu=True):
     # Pretrained ResNet18 backbone
-    backbone = resnet18(weights='IMAGENET1K_V1')
+    # backbone = resnet18(weights='IMAGENET1K_V1')
+    backbone = timm.create_model('resnet18', pretrained=True)
     return_layers = {
         'layer4': 'out',
         'layer1': 'skip1',
