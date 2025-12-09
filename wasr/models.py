@@ -69,11 +69,11 @@ class WaSR(nn.Module):
         features['imu_mask'] = x['imu_mask'].float().unsqueeze(1)
         features = (features['out'], features['aux'], features['skip2'], features['skip1'], features['imu_mask'])
         aux = features[1]
-        x = self.decoder(*features)
+        # x = self.decoder(*features)
 
         # Return segmentation map and aux feature map
         output = OrderedDict([
-            ('out', x),
+            # ('out', x),
             ('aux', aux)
         ])
 
