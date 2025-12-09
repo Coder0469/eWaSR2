@@ -11,3 +11,4 @@ blobconverter
 onnx
 onnxruntime
 onnxsim
+segmentation-models-pytorch
